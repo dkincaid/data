@@ -9,13 +9,13 @@ library(stringr)
 library(ggplot2)
 
 
-all_data <- read.csv('all_data.csv', stringsAsFactors=FALSE)
+all_data <- read.csv('all_data_fallen_officers.csv', stringsAsFactors=FALSE)
 
 clean_data <- all_data %>%
   mutate(
-    cause_short = gsub('Cause of Death: ', '', cause),
+    cause_short = gsub('Cause: ', '', cause),
     date = mdy(gsub('EOW: ', '', eow)),
-    year = year(date),
+    year = as.integer(year(date)),
     canine = ifelse(substr(person, 0, 2) == 'K9' & substr(person, 0, 10) != 'K9 Officer', TRUE, FALSE)
   )
 
